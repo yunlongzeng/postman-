@@ -1,0 +1,20 @@
+{
+	"id": "146e52f0-fd32-4814-8e58-8a3c0f4d5eb7",
+	"values": [
+		{
+			"key": "a-ip",
+			"value": "http://39.107.96.138:3000",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "topic",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"name": "My Workspace Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2019-02-20T14:57:07.821Z",
+	"_postman_exported_using": "Postman/6.7.3"
+}

@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "7984927f-7a47-4065-a9f9-deafd6b72edd",
+		"name": "19.02.20",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "新建主题",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0145a040-456d-4da4-ac26-d267f730c268",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var topic;",
+							"pm.globals.set(\"topic\", jsonData['topic_id']);",
+							" ",
+							"let expect_status = pm.variables.get(\"status\");",
+							"pm.test(\"Status code is \" + expect_status, function () {",
+							"    pm.response.to.have.status(expect_status);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3afc9a5d-1bac-4858-a863-372e49d83f5d",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "accesstoken",
+							"value": "4db94555-9612-477c-9b45-336590024ba0",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "{{title}}",
+							"type": "text"
+						},
+						{
+							"key": "tab",
+							"value": "{{tab}}",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "{{content}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{a-ip}}/api/v1/topics",
+					"host": [
+						"{{a-ip}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取主题",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "757bafaf-a8d4-49e0-87c9-0fca35abac2d",
+						"exec": [
+							"let jsonData = pm.response.json();",
+							"let actual_title = jsonData['data']['title']",
+							"let actual_tab = jsonData['data']['tab']",
+							"let actual_content = jsonData['data']['content']",
+							"",
+							"",
+							"let expect_title = pm.variables.get(\"title\");",
+							"let expect_tab = pm.variables.get(\"tab\");",
+							"let expect_content = pm.variables.get(\"content\");",
+							"",
+							"pm.test(\"title值校验\", function () {",
+							"    pm.expect(expect_title).to.eql(actual_title);",
+							"});",
+							"pm.test(\"tab值校验\", function () {",
+							"    pm.expect(expect_tab).to.eql(actual_tab);",
+							"});",
+							"pm.test(\"content值校验\", function () {",
+							"    pm.expect(expect_content).to.eql(actual_content);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{a-ip}}/api/v1/topic/{{topic}}?mdrender=false",
+					"host": [
+						"{{a-ip}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"topic",
+						"{{topic}}"
+					],
+					"query": [
+						{
+							"key": "mdrender",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
